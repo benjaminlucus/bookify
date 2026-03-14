@@ -98,6 +98,14 @@ export interface VoiceSelectorProps {
     onChange: (voiceId: string) => void;
 }
 
+export interface VoiceCardProps {
+    voiceKey: string;
+    name: string;
+    description: string;
+    isSelected: boolean;
+    onSelect: (key: string) => void;
+}
+
 export interface InputFieldProps<T extends FieldValues> {
     control: Control<T>;
     name: FieldPath<T>;
