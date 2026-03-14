@@ -2,7 +2,9 @@ import React from 'react'
 
 const NewBookPage = () => {
   return (
-    <div>NewBookPage</div>
+    <div>
+      This is a new page of the new web era
+    </div>
   )
 }
 
