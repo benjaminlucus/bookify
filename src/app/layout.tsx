@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { Geist, Geist_Mono, IBM_Plex_Serif, Mona_Sans } from "next/font/google";
+import { ClerkProvider, SignInButton, SignUpButton, Show, UserButton } from "@clerk/nextjs";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import "./globals.css";
+import Navbar from "../components/Navbar";
 
 const ibmPlexSerif = IBM_Plex_Serif({
   variable: "--font-ibm-plex-serif",
@@ -20,12 +18,6 @@ const monaSans = Mona_Sans({
   display: 'swap'
 })
 
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
   title: "Bookify",
   description: "Transform your books into intractive AI conversations.",
@@ -39,9 +31,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${ibmPlexSerif.variable} ${monaSans.variable} realtive font-sans antialiased`}
+        className={`${ibmPlexSerif.variable} ${monaSans.variable} realtive font-sans antialiased flex flex-col`}
       >
-        {children}
+        <ClerkProvider>
+          <Navbar />
+          <main className="flex-grow">
+
+          {children}
+          </main>
+        </ClerkProvider>
       </body>
     </html>
   );
