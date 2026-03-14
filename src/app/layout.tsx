@@ -31,11 +31,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${ibmPlexSerif.variable} ${monaSans.variable} realtive font-sans antialiased`}
+        className={`${ibmPlexSerif.variable} ${monaSans.variable} realtive font-sans antialiased flex flex-col`}
       >
         <ClerkProvider>
           <Navbar />
+          <main className="flex-grow">
+
           {children}
+          </main>
         </ClerkProvider>
       </body>
     </html>

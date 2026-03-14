@@ -442,13 +442,6 @@ body {
   color: var(--text-primary);
 }
 
-  z-index: 1;
-  border: 1px solid var(--border-subtle) !important;
-  border-radius: 1rem !important;
-  background-color: white !important;
-  box-shadow: var(--shadow-soft-md) !important;
-}
-
 /* Subscription panel appear above pricing cards */
 .cl-drawerRoot {
   z-index: 100 !important;

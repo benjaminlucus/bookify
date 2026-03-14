@@ -24,7 +24,7 @@ const Navbar = () => {
   // This prevents the hydration error AND follows the Rules of Hooks
   if (!mounted || !isLoaded) {
     return (
-      <header className='w-full fixed z-50 bg-[var(--bg-primary)] border-b border-[var(--border-subtle)]'>
+      <header className='w-full sticky z-50 bg-[var(--bg-primary)] border-b border-[var(--border-subtle)]'>
         <div className='wrapper navbar-height flex justify-between items-center'>
           <div className='flex gap-0.5 items-center'>
             <Image width={62} height={62} alt='Bookify' src={"/assets/logo.png"} />
@@ -37,7 +37,7 @@ const Navbar = () => {
   }
 
   return (
-    <header className='w-full fixed z-50 bg-[var(--bg-primary)] border-b border-[var(--border-subtle)]'>
+    <header className='w-full sticky z-50 bg-[var(--bg-primary)] border-b border-[var(--border-subtle)]'>
       <div className='wrapper navbar-height flex justify-between items-center'>
         
         {/* Logo */}

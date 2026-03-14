@@ -2,12 +2,11 @@
 
 import * as React from "react";
 import {
-  Controller,
-  FieldPath,
+  Controller,  ControllerRenderProps,  FieldPath,
   FieldValues,
   UseFormReturn,
 } from "react-hook-form";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 
 export function Form<
   TFieldValues extends FieldValues = FieldValues,
@@ -20,6 +19,7 @@ export function Form<
 }) {
   return (
     <form
+      data-is-submitting={form.formState.isSubmitting}
       className={cn("space-y-6", className)}
       noValidate
       {...props}
@@ -37,7 +37,9 @@ export function FormField<
 }: {
   control: UseFormReturn<TFieldValues>["control"];
   name: TName;
-  render: (field: any) => React.ReactNode;
+  render: (
+    field: ControllerRenderProps<TFieldValues, TName>,
+  ) => React.ReactNode;
 }) {
   return <Controller control={control} name={name} render={render} />;
 }
