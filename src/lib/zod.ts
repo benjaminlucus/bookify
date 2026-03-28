@@ -11,7 +11,7 @@ import {
 // Zod's `instanceof` check will work in the browser environment.
 
 export const UploadSchema = z.object({
-  file: z
+  pdfFile: z
     .instanceof(File)
     .refine((file) => ACCEPTED_PDF_TYPES.includes(file.type), {
       message: "Please upload a valid PDF file.",

@@ -1,10 +1,11 @@
+import { TextSegment } from '@types';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { TextSegment } from '@types';
 import { DEFAULT_VOICE, voiceOptions } from './constants';
 
-export function cn(...classes: Array<string | undefined | false | null>) {
-  return classes.filter(Boolean).join(" ");
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }
 
 // Serialize Mongoose documents to plain JSON objects (strips ObjectId, Date, etc.)
@@ -123,6 +124,7 @@ export async function parsePDFFile(file: File) {
     await firstPage.render({
       canvasContext: context,
       viewport: viewport,
+      canvas: canvas, 
     }).promise;
 
     // Convert canvas to data URL
@@ -135,8 +137,8 @@ export async function parsePDFFile(file: File) {
       const page = await pdfDocument.getPage(pageNum);
       const textContent = await page.getTextContent();
       const pageText = textContent.items
-          .filter((item: any) => 'str' in item)
-          .map((item: any) => (item as { str: string }).str)
+          .filter((item) => 'str' in item)
+          .map((item) => (item as { str: string }).str)
           .join(' ');
       fullText += pageText + '\n';
     }
