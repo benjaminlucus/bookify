@@ -37,7 +37,7 @@ const Navbar = () => {
   }
 
   return (
-    <header className='w-full sticky z-50 bg-[var(--bg-primary)] border-b border-[var(--border-subtle)]'>
+    <header className='w-full text-black sticky z-50 bg-[var(--bg-primary)] border-b border-[var(--border-subtle)]'>
       <div className='wrapper navbar-height flex justify-between items-center'>
         
         {/* Logo */}

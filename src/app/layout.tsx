@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, IBM_Plex_Serif, Mona_Sans } from "next/font/google";
+import { Geist, Geist_Mono, IBM_Plex_Serif, Mona_Sans, JetBrains_Mono } from "next/font/google";
 import { ClerkProvider, SignInButton, SignUpButton, Show, UserButton } from "@clerk/nextjs";
 
 import "./globals.css";
 import Navbar from "../components/Navbar";
+import { Toaster } from "@/components/ui/sonner";
+import { cn } from "@/lib/utils";
+
+const jetbrainsMono = JetBrains_Mono({subsets:['latin'],variable:'--font-mono'});
 
 const ibmPlexSerif = IBM_Plex_Serif({
   variable: "--font-ibm-plex-serif",
@@ -29,15 +33,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={cn("font-mono", jetbrainsMono.variable)}>
       <body
         className={`${ibmPlexSerif.variable} ${monaSans.variable} realtive font-sans antialiased flex flex-col`}
       >
         <ClerkProvider>
           <Navbar />
           <main className="flex-grow">
-
-          {children}
+            <Toaster />
+            {children}
           </main>
         </ClerkProvider>
       </body>
