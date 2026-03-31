@@ -1,10 +1,20 @@
-import { Mic, MicOff } from 'lucide-react';
-import { IBook } from '@types';
+"use client";
+
+
+import { MicOff, Mic } from 'lucide-react';
+import { IBook, Messages } from '@types';
 import Image from "next/image";
+import Transcript from './Transcript';
+import React, { useState } from 'react';
+import { useVapi } from '@/hooks/useVapi';
 
 const VapiControles = ({ book }: { book: IBook }) => {
+   const { status, isActive, messages, currentMessage, currentUserMessage, duration, start, stop, clearError, limitError, isBillingError, 
+    // maxDurationSeconds 
+  } = useVapi(book)
+
   return (
-    <>
+    <div className="space-y-8">
       <div className="bg-[#f3e4c7] rounded-xl p-6 flex flex-col md:flex-row gap-8 items-center md:items-start shadow-sm">
         {/* Left: Book cover image */}
         <div className="relative flex-shrink-0">
@@ -18,8 +28,22 @@ const VapiControles = ({ book }: { book: IBook }) => {
           </div>
           {/* Overlapping Mic Button */}
           <div className="absolute -bottom-4 -right-4">
-            <button className="h-[60px] w-[60px] rounded-full bg-white flex items-center justify-center shadow-md hover:shadow-lg transition-shadow border border-[rgba(33,42,59,0.05)]">
-              <MicOff className="h-6 w-6 text-[#212a3b]" />
+            {/* Pulsating ring when active and AI is speaking/thinking */}
+            {isActive && currentMessage && (
+              <div className="absolute inset-0 -m-2">
+                <div className="h-full w-full rounded-full bg-white opacity-75 animate-ping" />
+              </div>
+            )}
+            <button 
+              onClick={isActive ? stop : start} 
+              disabled={status==="connecting"} 
+              className="relative h-[60px] w-[60px] cursor-pointer rounded-full bg-white flex items-center justify-center shadow-md hover:shadow-lg transition-shadow border border-[rgba(33,42,59,0.05)]"
+            >
+              {isActive ? (
+                <Mic className="h-6 w-6 text-[#212a3b]" />
+              ) : (
+                <MicOff className="h-6 w-6 text-[#212a3b]" />
+              )}
             </button>
           </div>
         </div>
@@ -49,22 +73,12 @@ const VapiControles = ({ book }: { book: IBook }) => {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl min-h-[400px] flex flex-col items-center justify-center p-8 border border-[rgba(33,42,59,0.05)] shadow-sm">
-        <div className="flex flex-col items-center gap-4 text-center">
-          <div className="h-16 w-16 rounded-full bg-[rgba(33,42,59,0.05)] flex items-center justify-center">
-            <Mic className="h-8 w-8 text-[#3d485e]" />
-          </div>
-          <div className="space-y-1">
-            <h2 className="text-xl font-bold text-[#212a3b]">
-              No conversation yet
-            </h2>
-            <p className="text-[#3d485e]">
-              Click the mic button above to start talking
-            </p>
-          </div>
-        </div>
-      </div>
-    </>
+      <Transcript 
+        messages={messages} 
+        currentMessage={currentMessage} 
+        currentUserMessage={currentUserMessage} 
+      />
+    </div>
   )
 }
 

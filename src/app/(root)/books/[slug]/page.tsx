@@ -2,8 +2,6 @@ import React from "react";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { getBookBySlug } from "@/lib/actions/book.action";
-import Image from "next/image";
-import { MicOff, Mic } from "lucide-react";
 import VapiControles from "@/components/VapiControles";
 
 interface PageProps {
